@@ -18,7 +18,7 @@ Open http://127.0.0.1:8000. Keep the terminal running; Ctrl+C stops it. Serve ov
 
 ## Controls
 
-Search an airport code or flight callsign, select a flight, and use the timeline or playback control to move through the synthetic journey.
+Search an airport code or flight callsign, select a flight, and use the timeline, ±10% buttons or playback control to move through the synthetic journey. Filtering keeps the highlighted flight and detail panel consistent. Playback uses elapsed time, pauses when the tab is hidden, and does not rebuild the keyboard-focusable list each frame. Reduced motion disables animated playback while preserving timeline and step controls.
 
 ## Project structure
 
@@ -74,3 +74,4 @@ Use small, reviewable changes with a clear user benefit. Add model tests when be
 ## License
 
 A redistribution license has not yet been selected. Public visibility alone does not grant an open-source license.
+

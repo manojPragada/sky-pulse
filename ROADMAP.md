@@ -23,3 +23,6 @@ Initial prototype created 2026-10-17. Re-read repository contents and latest com
 - Local HTTP document/module/style serving and HTML anchor/ID integrity checked.
 - Browser rendering and interaction QA **not completed**: no installed Chromium; browser download failed. No screenshot is claimed.
 - Implementation is proposed on `feat/initial-experience` for review; inspect open PRs before starting the next change. Prioritize desktop/mobile and keyboard browser review next.
+
+
+2026-10-18: Fixed filtered-selection/detail consistency, stopped rebuilding list controls during animation, added elapsed-time playback, hidden-tab pausing, live motion preference handling and manual journey steps. Six model tests pass. Browser QA remains blocked by browser download failure; no live provider or deployment added.

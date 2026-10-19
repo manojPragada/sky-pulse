@@ -2,3 +2,12 @@ export const flights=[{id:'SP101',from:'YYZ',to:'LHR',origin:[-79,44],destinatio
 export function project([lon,lat]){return [(lon+180)/360*800,(90-lat)/180*400];}
 export function position(flight,phase){const t=Math.max(0,Math.min(1,phase));return flight.origin.map((n,i)=>n+(flight.destination[i]-n)*t);}
 export function filterFlights(query){const q=query.trim().toLowerCase();return flights.filter(f=>`${f.id} ${f.from} ${f.to}`.toLowerCase().includes(q));}
+
+
+export function selectionFor(visible, selected) {
+  return visible.find(flight => flight.id === selected)?.id ?? visible[0]?.id ?? null;
+}
+export function advancePhase(percent, elapsedMs) {
+  if (!Number.isFinite(percent) || !Number.isFinite(elapsedMs)) return 0;
+  return ((percent + Math.max(0, Math.min(elapsedMs, 1000)) * .002) % 100 + 100) % 100;
+}

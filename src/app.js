@@ -1,8 +1,71 @@
-import {flights,project,position,filterFlights} from './model.js';
-const $=s=>document.querySelector(s);let selected=flights[0].id,playing=false,last=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function render(){const visible=filterFlights($('#search').value);const phase=Number($('#time').value)/100;$('#empty').hidden=visible.length>0;$('#list').replaceChildren();$('#markers').replaceChildren();$('#tracks').replaceChildren();
- for(const f of visible){const button=document.createElement('button');button.textContent=`${f.id} · ${f.from} → ${f.to}`;button.setAttribute('aria-pressed',String(f.id===selected));button.onclick=()=>{selected=f.id;render();};$('#list').append(button);
- const start=project(f.origin),end=project(f.destination),point=project(position(f,phase));const ns='http://www.w3.org/2000/svg';const line=document.createElementNS(ns,'path');line.setAttribute('d',`M${start} L${end}`);line.setAttribute('class','trail');$('#tracks').append(line);const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',point[0]);dot.setAttribute('cy',point[1]);dot.setAttribute('r',f.id===selected?7:4);dot.setAttribute('class','marker');$('#markers').append(dot);}
- const f=visible.find(f=>f.id===selected)??visible[0];$('#detail').replaceChildren();if(f){const title=document.createElement('h2');title.textContent=f.id;const metric=document.createElement('p');metric.className='metric';metric.textContent=f.altitude.toLocaleString()+' ft';const note=document.createElement('p');note.className='muted small';note.textContent=`${f.from} → ${f.to} · fictional cruise altitude`;$('#detail').append(title,metric,note);}}
-$('#search').addEventListener('input',render);$('#time').addEventListener('input',render);$('#play').onclick=()=>{playing=!playing;$('#play').textContent=playing?'Pause demo':'Play demo';$('#play').setAttribute('aria-pressed',String(playing));};
-function tick(now){if(playing&&now-last>100){$('#time').value=(Number($('#time').value)+.2)%100;render();last=now;}requestAnimationFrame(tick);}render();if(!reduced)requestAnimationFrame(tick);else $('#play').disabled=true;
+import { flights, project, position, filterFlights, selectionFor, advancePhase } from './model.js';
+const $ = selector => document.querySelector(selector);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+let selected = flights[0].id, playing = false, frame = null, previous = null;
+function drawScene() {
+  const phase = Number($('#time').value) / 100;
+  $('#progress').textContent = Math.round(phase * 100) + '%';
+  $('#markers').replaceChildren(); $('#tracks').replaceChildren();
+  const ns = 'http://www.w3.org/2000/svg';
+  for (const flight of filterFlights($('#search').value)) {
+    const start = project(flight.origin), end = project(flight.destination), point = project(position(flight, phase));
+    const line = document.createElementNS(ns, 'path');
+    line.setAttribute('d', `M${start} L${end}`); line.setAttribute('class', 'trail'); $('#tracks').append(line);
+    const dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', point[0]); dot.setAttribute('cy', point[1]);
+    dot.setAttribute('r', flight.id === selected ? 7 : 4); dot.setAttribute('class', 'marker'); $('#markers').append(dot);
+  }
+}
+function renderSelection() {
+  const visible = filterFlights($('#search').value);
+  selected = selectionFor(visible, selected);
+  $('#empty').hidden = visible.length > 0; $('#list').replaceChildren();
+  for (const flight of visible) {
+    const button = document.createElement('button'); button.dataset.flight = flight.id;
+    button.textContent = `${flight.id} · ${flight.from} → ${flight.to}`;
+    button.setAttribute('aria-pressed', String(flight.id === selected));
+    button.addEventListener('click', () => {
+      selected = flight.id; renderSelection();
+      [...$('#list').children].find(button => button.dataset.flight === selected)?.focus();
+    });
+    $('#list').append(button);
+  }
+  const flight = visible.find(flight => flight.id === selected);
+  $('#detail').replaceChildren();
+  if (flight) {
+    const title = document.createElement('h2'); title.textContent = flight.id;
+    const metric = document.createElement('p'); metric.className = 'metric'; metric.textContent = flight.altitude.toLocaleString() + ' ft';
+    const note = document.createElement('p'); note.className = 'muted small'; note.textContent = `${flight.from} → ${flight.to} · fictional cruise altitude`;
+    $('#detail').append(title, metric, note);
+  }
+  drawScene();
+}
+function stop(message = 'Playback paused.') {
+  playing = false; previous = null;
+  if (frame !== null) cancelAnimationFrame(frame); frame = null;
+  $('#play').textContent = 'Play demo'; $('#play').setAttribute('aria-pressed', 'false');
+  $('#playback-status').textContent = message;
+}
+function tick(now) {
+  if (!playing) return;
+  if (previous !== null) $('#time').value = advancePhase(Number($('#time').value), now - previous);
+  previous = now; drawScene(); frame = requestAnimationFrame(tick);
+}
+function motionPreference() {
+  if (reduced.matches) stop('Reduced motion enabled. Use the timeline or journey-step buttons.');
+  $('#play').disabled = reduced.matches;
+}
+$('#play').addEventListener('click', () => {
+  if (playing) return stop();
+  if (reduced.matches) return;
+  playing = true; previous = null; $('#play').textContent = 'Pause demo'; $('#play').setAttribute('aria-pressed', 'true');
+  $('#playback-status').textContent = 'Playing synthetic journeys.'; frame = requestAnimationFrame(tick);
+});
+$('#search').addEventListener('input', renderSelection);
+$('#time').addEventListener('input', () => { stop(); drawScene(); });
+for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventListener('click', () => {
+  stop(); $('#time').value = Math.max(0, Math.min(100, Number($('#time').value) + delta)); drawScene();
+});
+document.addEventListener('visibilitychange', () => { if (document.hidden) stop('Playback paused while this tab is hidden.'); });
+reduced.addEventListener('change', motionPreference);
+renderSelection(); motionPreference();
