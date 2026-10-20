@@ -69,3 +69,4 @@ for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventList
 document.addEventListener('visibilitychange', () => { if (document.hidden) stop('Playback paused while this tab is hidden.'); });
 reduced.addEventListener('change', motionPreference);
 renderSelection(); motionPreference();
+

@@ -7,3 +7,4 @@ test('projection stays in map bounds',()=>{assert.deepEqual(project([-180,90]),[
 test('filter changes select a visible flight consistently',()=>{const list=filterFlights('SIN');assert.equal(selectionFor(list,'SP101'),'SP303');assert.equal(selectionFor(list,'SP303'),'SP303');assert.equal(selectionFor([], 'SP101'),null);});
 test('phase advances by elapsed time rather than render frequency',()=>{assert.equal(advancePhase(10,1000),12);assert.ok(Math.abs(advancePhase(advancePhase(10,500),500)-12)<1e-9);assert.ok(advancePhase(99,1000)<2);});
 test('invalid or excessive playback deltas stay bounded',()=>{assert.equal(advancePhase(10,100000),12);assert.equal(advancePhase(10,-1),10);assert.equal(advancePhase(NaN,1),0);});
+

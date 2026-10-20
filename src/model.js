@@ -11,3 +11,4 @@ export function advancePhase(percent, elapsedMs) {
   if (!Number.isFinite(percent) || !Number.isFinite(elapsedMs)) return 0;
   return ((percent + Math.max(0, Math.min(elapsedMs, 1000)) * .002) % 100 + 100) % 100;
 }
+
