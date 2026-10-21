@@ -12,6 +12,7 @@ async function scenario(page,base,reduced){
   assert.equal(await page.locator('#detail h2').textContent(),'SP303');
   await page.locator('#search').fill('no-such-flight');assert.equal(await page.locator('#detail h2').count(),0);
   await page.locator('#search').fill('YYZ');await page.locator('#forward').click();assert.equal(await page.locator('#time').inputValue(),'45');
+  await page.locator('#search').fill('');await page.locator('#altitude').selectOption('38000');assert.equal(await page.locator('#list button').count(),1);assert.equal(await page.locator('#detail h2').textContent(),'SP303');
   if(reduced){assert.equal(await page.locator('#play').isDisabled(),true);}
   else{
     await page.evaluate(()=>{window.originalFlightButton=document.querySelector('#list button');});
@@ -60,3 +61,4 @@ async function main(){
   }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});
+

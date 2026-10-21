@@ -7,7 +7,7 @@ function drawScene() {
   $('#progress').textContent = Math.round(phase * 100) + '%';
   $('#markers').replaceChildren(); $('#tracks').replaceChildren();
   const ns = 'http://www.w3.org/2000/svg';
-  for (const flight of filterFlights($('#search').value)) {
+  for (const flight of filterFlights($('#search').value,$('#altitude').value)) {
     const start = project(flight.origin), end = project(flight.destination), point = project(position(flight, phase));
     const line = document.createElementNS(ns, 'path');
     line.setAttribute('d', `M${start} L${end}`); line.setAttribute('class', 'trail'); $('#tracks').append(line);
@@ -17,7 +17,7 @@ function drawScene() {
   }
 }
 function renderSelection() {
-  const visible = filterFlights($('#search').value);
+  const visible = filterFlights($('#search').value,$('#altitude').value);
   selected = selectionFor(visible, selected);
   $('#empty').hidden = visible.length > 0; $('#list').replaceChildren();
   for (const flight of visible) {
@@ -62,6 +62,7 @@ $('#play').addEventListener('click', () => {
   $('#playback-status').textContent = 'Playing synthetic journeys.'; frame = requestAnimationFrame(tick);
 });
 $('#search').addEventListener('input', renderSelection);
+$('#altitude').addEventListener('change', renderSelection);
 $('#time').addEventListener('input', () => { stop(); drawScene(); });
 for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventListener('click', () => {
   stop(); $('#time').value = Math.max(0, Math.min(100, Number($('#time').value) + delta)); drawScene();
@@ -69,4 +70,5 @@ for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventList
 document.addEventListener('visibilitychange', () => { if (document.hidden) stop('Playback paused while this tab is hidden.'); });
 reduced.addEventListener('change', motionPreference);
 renderSelection(); motionPreference();
+
 
