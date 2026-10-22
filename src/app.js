@@ -1,14 +1,17 @@
-import { flights, project, position, filterFlights, selectionFor, advancePhase } from './model.js';
+import { flights, project, position, filterFlights, selectionFor, advancePhase, trailSegment } from './model.js';
 const $ = selector => document.querySelector(selector);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let selected = flights[0].id, playing = false, frame = null, previous = null;
+const trailLabel=document.createElement('label');trailLabel.textContent='Trail length ';
+const trail=document.createElement('select');trail.id='trail';
+for(const [value,label] of [['100','Full route'],['25','Last 25%'],['10','Last 10%']]){const option=document.createElement('option');option.value=value;option.textContent=label;trail.append(option);}trailLabel.append(trail);$('#altitude').closest('label').after(trailLabel);
 function drawScene() {
   const phase = Number($('#time').value) / 100;
   $('#progress').textContent = Math.round(phase * 100) + '%';
   $('#markers').replaceChildren(); $('#tracks').replaceChildren();
   const ns = 'http://www.w3.org/2000/svg';
   for (const flight of filterFlights($('#search').value,$('#altitude').value)) {
-    const start = project(flight.origin), end = project(flight.destination), point = project(position(flight, phase));
+    const [trailStart,trailEnd]=trailSegment(flight,phase,$('#trail').value);const start=project(trailStart),end=project(trailEnd),point = project(position(flight, phase));
     const line = document.createElementNS(ns, 'path');
     line.setAttribute('d', `M${start} L${end}`); line.setAttribute('class', 'trail'); $('#tracks').append(line);
     const dot = document.createElementNS(ns, 'circle');
@@ -63,6 +66,7 @@ $('#play').addEventListener('click', () => {
 });
 $('#search').addEventListener('input', renderSelection);
 $('#altitude').addEventListener('change', renderSelection);
+$('#trail').addEventListener('change',drawScene);
 $('#time').addEventListener('input', () => { stop(); drawScene(); });
 for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventListener('click', () => {
   stop(); $('#time').value = Math.max(0, Math.min(100, Number($('#time').value) + delta)); drawScene();

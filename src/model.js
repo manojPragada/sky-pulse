@@ -2,6 +2,7 @@ export const flights=[{id:'SP101',from:'YYZ',to:'LHR',origin:[-79,44],destinatio
 export function project([lon,lat]){return [(lon+180)/360*800,(90-lat)/180*400];}
 export function position(flight,phase){const t=Math.max(0,Math.min(1,phase));return flight.origin.map((n,i)=>n+(flight.destination[i]-n)*t);}
 export function filterFlights(query,minAltitude=0){const q=query.trim().toLowerCase();const altitude=Number(minAltitude);return flights.filter(f=>`${f.id} ${f.from} ${f.to}`.toLowerCase().includes(q)&&f.altitude>=(Number.isFinite(altitude)?altitude:0));}
+export function trailSegment(flight,phase,trailPercent=100){const end=Math.max(0,Math.min(1,Number(phase)||0));const length=Math.max(0,Math.min(100,Number(trailPercent)||0))/100;return [position(flight,Math.max(0,end-length)),position(flight,end)];}
 
 
 export function selectionFor(visible, selected) {

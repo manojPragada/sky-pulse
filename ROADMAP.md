@@ -14,6 +14,8 @@
 
 ## Continuity
 
+2026-10-21: Added full-route, 25% and 10% synthetic trail windows. Trail geometry follows the scrubbed/playback position, clamps safely at route boundaries and is covered in model and browser tests. Next: verify provider terms before any live adapter.
+
 2026-10-21: Added a composable synthetic altitude filter with stable selected-flight fallback and browser coverage. No provider or live altitude claim. Next: verify a live-data provider's terms and rate limits before implementing an adapter.
 
 2026-10-20: Added repeatable Playwright regression checks and a public-repository-only CI workflow. Desktop, mobile and motion-enabled scenarios passed locally using Chromium 153; model tests and syntax checks passed. Screenshots generated locally for inspection. Earlier browser-unavailable notes below are historical. No deployment or live-provider validation performed. Next: expand browser coverage and review the existing PR before merging.
