@@ -1,4 +1,4 @@
-import { flights, project, position, filterFlights, selectionFor, advancePhase, trailSegment } from './model.js';
+import { flights, airportLabels, project, position, filterFlights, selectionFor, advancePhase, trailSegment } from './model.js';
 const $ = selector => document.querySelector(selector);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let selected = flights[0].id, playing = false, frame = null, previous = null;
@@ -38,7 +38,7 @@ function renderSelection() {
   if (flight) {
     const title = document.createElement('h2'); title.textContent = flight.id;
     const metric = document.createElement('p'); metric.className = 'metric'; metric.textContent = flight.altitude.toLocaleString() + ' ft';
-    const note = document.createElement('p'); note.className = 'muted small'; note.textContent = `${flight.from} → ${flight.to} · fictional cruise altitude`;
+    const note = document.createElement('p'); note.className = 'muted small'; note.textContent = `${airportLabels[flight.from]} (${flight.from}) → ${airportLabels[flight.to]} (${flight.to}) · fictional cruise altitude`;
     $('#detail').append(title, metric, note);
   }
   drawScene();

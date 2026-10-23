@@ -10,9 +10,12 @@
 
 - [ ] Add verified live-data provider adapter with rate-limit handling
 - [ ] Replace schematic map with attributed geographic geometry
+- [x] Add bundled city-label search for demo endpoints
 - [ ] Add geographic search and altitude history
 
 ## Continuity
+
+2026-10-22: Extended offline airport filtering to bundled city labels and made endpoint names visible in flight details. Labels are static demo metadata, not a geographic provider. Next: verify provider terms before any live-data adapter.
 
 2026-10-21: Added full-route, 25% and 10% synthetic trail windows. Trail geometry follows the scrubbed/playback position, clamps safely at route boundaries and is covered in model and browser tests. Next: verify provider terms before any live adapter.
 

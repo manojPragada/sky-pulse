@@ -18,7 +18,7 @@ Open http://127.0.0.1:8000. Keep the terminal running; Ctrl+C stops it. Serve ov
 
 ## Controls
 
-Airport/callsign search composes with the minimum-altitude selector. Choose a full-route, 25% or 10% trail window; shortened trails end at the current scrubbed aircraft position rather than implying observed history. Altitudes and trails are fictional demo fields, not observed flight data.
+Airport/callsign search accepts the eight bundled demo airport codes or city labels and composes with the minimum-altitude selector. Choose a full-route, 25% or 10% trail window; shortened trails end at the current scrubbed aircraft position rather than implying observed history. City labels are static interface copy, not a connected airport database. Altitudes and trails are fictional demo fields, not observed flight data.
 
 Search an airport code or flight callsign, select a flight, and use the timeline, ±10% buttons or playback control to move through the synthetic journey. Filtering keeps the highlighted flight and detail panel consistent. Playback uses elapsed time, pauses when the tab is hidden, and does not rebuild the keyboard-focusable list each frame. Reduced motion disables animated playback while preserving timeline and step controls.
 

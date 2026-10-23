@@ -8,6 +8,7 @@ const root=path.resolve(__dirname,'..');
 const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.geojson':'application/geo+json'};
 async function scenario(page,base,reduced){
   await page.locator('#trail').selectOption('25');assert.equal(await page.locator('#tracks path').count(),4);
+  await page.locator('#search').fill('Toronto');assert.equal(await page.locator('#detail h2').textContent(),'SP101');assert.match(await page.locator('#detail .muted').textContent(),/Toronto.*London/);
 
   await page.locator('#search').fill('SIN');assert.equal(await page.locator('#list button[aria-pressed=true]').count(),1);
   assert.equal(await page.locator('#detail h2').textContent(),'SP303');
