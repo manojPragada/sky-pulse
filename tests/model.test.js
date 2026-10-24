@@ -1,7 +1,8 @@
-import {test} from 'node:test';import assert from 'node:assert/strict';import {flights,position,project,filterFlights,selectionFor,advancePhase,trailSegment} from '../src/model.js';
+import {test} from 'node:test';import assert from 'node:assert/strict';import {flights,position,project,filterFlights,selectionFor,advancePhase,trailSegment,airportDirectory} from '../src/model.js';
 test('flight endpoints and phase clamping',()=>{assert.deepEqual(position(flights[0],0),flights[0].origin);assert.deepEqual(position(flights[0],2),flights[0].destination);});
 test('search handles case and no results',()=>{assert.equal(filterFlights(' yyz ').length,1);assert.equal(filterFlights('nowhere').length,0);});
 test('search accepts bundled demo city labels',()=>{assert.deepEqual(filterFlights('toronto').map(f=>f.id),['SP101']);assert.deepEqual(filterFlights('london').map(f=>f.id),['SP101']);assert.deepEqual(filterFlights('sydney').map(f=>f.id),['SP303']);});
+test('airport directory is unique, alphabetical and reports demo coverage',()=>{const airports=airportDirectory();assert.equal(airports.length,8);assert.deepEqual(airports.map(a=>a.city),[...airports.map(a=>a.city)].sort());assert.deepEqual(airports.find(a=>a.code==='YYZ'),{code:'YYZ',city:'Toronto',routes:1});});
 test('altitude filter composes with airport search and tolerates invalid input',()=>{assert.deepEqual(filterFlights('',38000).map(f=>f.id),['SP303']);assert.deepEqual(filterFlights('JFK',35000).map(f=>f.id),['SP202']);assert.equal(filterFlights('',NaN).length,flights.length);});
 test('projection stays in map bounds',()=>{assert.deepEqual(project([-180,90]),[0,0]);assert.deepEqual(project([180,-90]),[800,400]);});
 

@@ -1,7 +1,8 @@
-import { flights, airportLabels, project, position, filterFlights, selectionFor, advancePhase, trailSegment } from './model.js';
+import { flights, airportLabels, airportDirectory, project, position, filterFlights, selectionFor, advancePhase, trailSegment } from './model.js';
 const $ = selector => document.querySelector(selector);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let selected = flights[0].id, playing = false, frame = null, previous = null;
+const airportOptions=document.createElement('datalist');airportOptions.id='airport-options';for(const airport of airportDirectory()){const option=document.createElement('option');option.value=airport.code;option.label=`${airport.city} · ${airport.routes} demo route`;airportOptions.append(option);}$('#search').setAttribute('list',airportOptions.id);$('#search').after(airportOptions);
 const trailLabel=document.createElement('label');trailLabel.textContent='Trail length ';
 const trail=document.createElement('select');trail.id='trail';
 for(const [value,label] of [['100','Full route'],['25','Last 25%'],['10','Last 10%']]){const option=document.createElement('option');option.value=value;option.textContent=label;trail.append(option);}trailLabel.append(trail);$('#altitude').closest('label').after(trailLabel);

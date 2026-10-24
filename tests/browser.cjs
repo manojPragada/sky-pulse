@@ -7,6 +7,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
 const root=path.resolve(__dirname,'..');
 const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.geojson':'application/geo+json'};
 async function scenario(page,base,reduced){
+  assert.equal(await page.locator('#airport-options option').count(),8);
   await page.locator('#trail').selectOption('25');assert.equal(await page.locator('#tracks path').count(),4);
   await page.locator('#search').fill('Toronto');assert.equal(await page.locator('#detail h2').textContent(),'SP101');assert.match(await page.locator('#detail .muted').textContent(),/Toronto.*London/);
 

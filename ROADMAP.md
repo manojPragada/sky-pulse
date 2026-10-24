@@ -15,6 +15,8 @@
 
 ## Continuity
 
+2026-10-23: Added a bundled airport suggestion directory with city, code and demo-route coverage, wired to the existing search input without implying comprehensive or live airport data. Next: verify live provider terms before implementing an adapter.
+
 2026-10-22: Extended offline airport filtering to bundled city labels and made endpoint names visible in flight details. Labels are static demo metadata, not a geographic provider. Next: verify provider terms before any live-data adapter.
 
 2026-10-21: Added full-route, 25% and 10% synthetic trail windows. Trail geometry follows the scrubbed/playback position, clamps safely at route boundaries and is covered in model and browser tests. Next: verify provider terms before any live adapter.
