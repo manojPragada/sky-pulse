@@ -6,6 +6,7 @@ const airportOptions=document.createElement('datalist');airportOptions.id='airpo
 const trailLabel=document.createElement('label');trailLabel.textContent='Trail length ';
 const trail=document.createElement('select');trail.id='trail';
 for(const [value,label] of [['100','Full route'],['25','Last 25%'],['10','Last 10%']]){const option=document.createElement('option');option.value=value;option.textContent=label;trail.append(option);}trailLabel.append(trail);$('#altitude').closest('label').after(trailLabel);
+const clearFilters=document.createElement('button');clearFilters.id='clear-filters';clearFilters.type='button';clearFilters.textContent='Reset exploration';trailLabel.after(clearFilters);
 function drawScene() {
   const phase = Number($('#time').value) / 100;
   $('#progress').textContent = Math.round(phase * 100) + '%';
@@ -68,6 +69,7 @@ $('#play').addEventListener('click', () => {
 $('#search').addEventListener('input', renderSelection);
 $('#altitude').addEventListener('change', renderSelection);
 $('#trail').addEventListener('change',drawScene);
+clearFilters.addEventListener('click',()=>{stop('Search, altitude and trail filters reset.');$('#search').value='';$('#altitude').value='0';$('#trail').value='100';selected=flights[0].id;renderSelection();$('#search').focus();});
 $('#time').addEventListener('input', () => { stop(); drawScene(); });
 for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventListener('click', () => {
   stop(); $('#time').value = Math.max(0, Math.min(100, Number($('#time').value) + delta)); drawScene();

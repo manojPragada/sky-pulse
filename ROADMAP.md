@@ -15,6 +15,8 @@
 
 ## Continuity
 
+2026-10-24: Added a single keyboard-accessible reset that clears airport search, altitude and trail filters, restores stable selection and returns focus to search. Next: verify provider terms and rate limits before any live adapter.
+
 2026-10-23: Added a bundled airport suggestion directory with city, code and demo-route coverage, wired to the existing search input without implying comprehensive or live airport data. Next: verify live provider terms before implementing an adapter.
 
 2026-10-22: Extended offline airport filtering to bundled city labels and made endpoint names visible in flight details. Labels are static demo metadata, not a geographic provider. Next: verify provider terms before any live-data adapter.
