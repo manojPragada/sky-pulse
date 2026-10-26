@@ -12,8 +12,11 @@
 - [ ] Replace schematic map with attributed geographic geometry
 - [x] Add bundled city-label search for demo endpoints
 - [ ] Add geographic search and altitude history
+- [x] Add a deterministic synthetic climb/cruise/descent altitude profile
 
 ## Continuity
+
+2026-10-25: Added a deterministic synthetic altitude profile tied to journey phase, with climb, cruise and descent states clearly labelled as fictional. Next: verify provider terms before any live adapter.
 
 2026-10-24: Added a single keyboard-accessible reset that clears airport search, altitude and trail filters, restores stable selection and returns focus to search. Next: verify provider terms and rate limits before any live adapter.
 
