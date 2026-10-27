@@ -7,6 +7,7 @@ export function filterFlights(query,minAltitude=0){const q=query.trim().toLowerC
 export function trailSegment(flight,phase,trailPercent=100){const end=Math.max(0,Math.min(1,Number(phase)||0));const length=Math.max(0,Math.min(100,Number(trailPercent)||0))/100;return [position(flight,Math.max(0,end-length)),position(flight,end)];}
 export function altitudeAtPhase(flight,phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(t<.15)return Math.round(flight.altitude*t/.15);if(t>.85)return Math.round(flight.altitude*(1-t)/.15);return flight.altitude;}
 export function journeyPhase(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));return t<.15?'Climbing':t>.85?'Descending':'Cruising';}
+export function journeyRemaining(phase){return Math.round((1-Math.max(0,Math.min(1,Number(phase)||0)))*100);}
 
 
 export function selectionFor(visible, selected) {
