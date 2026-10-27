@@ -1,4 +1,4 @@
-import { flights, airportLabels, airportDirectory, project, position, filterFlights, selectionFor, advancePhase, trailSegment, altitudeAtPhase } from './model.js';
+import { flights, airportLabels, airportDirectory, project, position, filterFlights, selectionFor, advancePhase, trailSegment, altitudeAtPhase, journeyPhase } from './model.js';
 const $ = selector => document.querySelector(selector);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let selected = flights[0].id, playing = false, frame = null, previous = null;
@@ -39,9 +39,9 @@ function renderSelection() {
   $('#detail').replaceChildren();
   if (flight) {
     const title = document.createElement('h2'); title.textContent = flight.id;
-    const metric = document.createElement('p'); metric.className = 'metric'; metric.textContent = altitudeAtPhase(flight,Number($('#time').value)/100).toLocaleString() + ' ft';
+    const phase=Number($('#time').value)/100;const metric = document.createElement('p'); metric.className = 'metric'; metric.textContent = altitudeAtPhase(flight,phase).toLocaleString() + ' ft';
     const note = document.createElement('p'); note.className = 'muted small'; note.textContent = `${airportLabels[flight.from]} (${flight.from}) → ${airportLabels[flight.to]} (${flight.to}) · synthetic phase altitude; ${flight.altitude.toLocaleString()} ft fictional cruise`;
-    $('#detail').append(title, metric, note);
+    const state=document.createElement('p');state.className='status';state.textContent=`${journeyPhase(phase)} · ${Math.round(phase*100)}% of synthetic journey`;$('#detail').append(title,metric,state,note);
   }
   drawScene();
 }

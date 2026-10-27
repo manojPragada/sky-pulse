@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-10-26: Added a synchronized climb/cruise/descent status and synthetic journey percentage to the selected flight. Next: verify provider terms before any live adapter.
+
 2026-10-25: Added a deterministic synthetic altitude profile tied to journey phase, with climb, cruise and descent states clearly labelled as fictional. Next: verify provider terms before any live adapter.
 
 2026-10-24: Added a single keyboard-accessible reset that clears airport search, altitude and trail filters, restores stable selection and returns focus to search. Next: verify provider terms and rate limits before any live adapter.
