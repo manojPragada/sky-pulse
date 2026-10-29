@@ -8,6 +8,7 @@ export function trailSegment(flight,phase,trailPercent=100){const end=Math.max(0
 export function altitudeAtPhase(flight,phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(t<.15)return Math.round(flight.altitude*t/.15);if(t>.85)return Math.round(flight.altitude*(1-t)/.15);return flight.altitude;}
 export function journeyPhase(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));return t<.15?'Climbing':t>.85?'Descending':'Cruising';}
 export function journeyRemaining(phase){return Math.round((1-Math.max(0,Math.min(1,Number(phase)||0)))*100);}
+export function nextJourneyMilestone(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(t<.15)return `cruise in ${Math.round((.15-t)*100)}%`;if(t<.85)return `descent in ${Math.round((.85-t)*100)}%`;return `arrival in ${Math.round((1-t)*100)}%`;}
 
 
 export function selectionFor(visible, selected) {

@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-10-28: Added a clamped next-milestone label for the fictional climb/cruise/descent profile. Next: verify provider terms before any live adapter.
+
 2026-10-27: Added clamped remaining-journey progress alongside the synthetic phase status. Next: verify provider terms before any live adapter.
 
 2026-10-26: Added a synchronized climb/cruise/descent status and synthetic journey percentage to the selected flight. Next: verify provider terms before any live adapter.
