@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-10-29: Added explicit gaining/holding/losing altitude language tied only to the fictional profile. Next: verify provider terms before any live adapter.
+
 2026-10-28: Added a clamped next-milestone label for the fictional climb/cruise/descent profile. Next: verify provider terms before any live adapter.
 
 2026-10-27: Added clamped remaining-journey progress alongside the synthetic phase status. Next: verify provider terms before any live adapter.
