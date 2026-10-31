@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-10-30: Fixed the selected-flight altitude and journey status so playback, timeline scrubbing and ±10% steps update the detail panel continuously without rebuilding the focusable flight list. Next: verify provider terms before any live adapter.
+
 2026-10-29: Added explicit gaining/holding/losing altitude language tied only to the fictional profile. Next: verify provider terms before any live adapter.
 
 2026-10-28: Added a clamped next-milestone label for the fictional climb/cruise/descent profile. Next: verify provider terms before any live adapter.

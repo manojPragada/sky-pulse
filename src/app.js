@@ -39,12 +39,13 @@ function renderSelection() {
   $('#detail').replaceChildren();
   if (flight) {
     const title = document.createElement('h2'); title.textContent = flight.id;
-    const phase=Number($('#time').value)/100;const metric = document.createElement('p'); metric.className = 'metric'; metric.textContent = altitudeAtPhase(flight,phase).toLocaleString() + ' ft';
+    const phase=Number($('#time').value)/100;const metric = document.createElement('p'); metric.id='flight-altitude';metric.className = 'metric'; metric.textContent = altitudeAtPhase(flight,phase).toLocaleString() + ' ft';
     const note = document.createElement('p'); note.className = 'muted small'; note.textContent = `${airportLabels[flight.from]} (${flight.from}) → ${airportLabels[flight.to]} (${flight.to}) · synthetic phase altitude; ${flight.altitude.toLocaleString()} ft fictional cruise`;
-    const state=document.createElement('p');state.className='status';state.textContent=`${journeyPhase(phase)} · ${altitudeTrend(phase)} · ${Math.round(phase*100)}% complete · ${journeyRemaining(phase)}% remaining · ${nextJourneyMilestone(phase)}`;$('#detail').append(title,metric,state,note);
+    const state=document.createElement('p');state.id='journey-status';state.className='status';state.textContent=`${journeyPhase(phase)} · ${altitudeTrend(phase)} · ${Math.round(phase*100)}% complete · ${journeyRemaining(phase)}% remaining · ${nextJourneyMilestone(phase)}`;$('#detail').append(title,metric,state,note);
   }
   drawScene();
 }
+function updateJourneyStatus(){const flight=flights.find(item=>item.id===selected),metric=$('#flight-altitude'),status=$('#journey-status');if(!flight||!metric||!status)return;const phase=Number($('#time').value)/100;metric.textContent=altitudeAtPhase(flight,phase).toLocaleString()+' ft';status.textContent=`${journeyPhase(phase)} · ${altitudeTrend(phase)} · ${Math.round(phase*100)}% complete · ${journeyRemaining(phase)}% remaining · ${nextJourneyMilestone(phase)}`;}
 function stop(message = 'Playback paused.') {
   playing = false; previous = null;
   if (frame !== null) cancelAnimationFrame(frame); frame = null;
@@ -54,7 +55,7 @@ function stop(message = 'Playback paused.') {
 function tick(now) {
   if (!playing) return;
   if (previous !== null) $('#time').value = advancePhase(Number($('#time').value), now - previous);
-  previous = now; drawScene(); frame = requestAnimationFrame(tick);
+  previous = now; drawScene();updateJourneyStatus(); frame = requestAnimationFrame(tick);
 }
 function motionPreference() {
   if (reduced.matches) stop('Reduced motion enabled. Use the timeline or journey-step buttons.');
@@ -70,9 +71,9 @@ $('#search').addEventListener('input', renderSelection);
 $('#altitude').addEventListener('change', renderSelection);
 $('#trail').addEventListener('change',drawScene);
 clearFilters.addEventListener('click',()=>{stop('Search, altitude and trail filters reset.');$('#search').value='';$('#altitude').value='0';$('#trail').value='100';selected=flights[0].id;renderSelection();$('#search').focus();});
-$('#time').addEventListener('input', () => { stop(); drawScene(); });
+$('#time').addEventListener('input', () => { stop(); drawScene();updateJourneyStatus(); });
 for (const [id, delta] of [['#back', -10], ['#forward', 10]]) $(id).addEventListener('click', () => {
-  stop(); $('#time').value = Math.max(0, Math.min(100, Number($('#time').value) + delta)); drawScene();
+  stop(); $('#time').value = Math.max(0, Math.min(100, Number($('#time').value) + delta)); drawScene();updateJourneyStatus();
 });
 document.addEventListener('visibilitychange', () => { if (document.hidden) stop('Playback paused while this tab is hidden.'); });
 reduced.addEventListener('change', motionPreference);
