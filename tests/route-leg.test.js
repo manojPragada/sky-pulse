@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {flights,routeLegStatus} from '../src/model.js';
+test('route leg status stays tied to fictional endpoints',()=>{assert.equal(routeLegStatus(flights[0],0),'Departing YYZ');assert.equal(routeLegStatus(flights[0],.5),'YYZ–LHR fictional en route');assert.equal(routeLegStatus(flights[0],1),'Approaching LHR');assert.equal(routeLegStatus(null,.5),'No fictional route selected');});
