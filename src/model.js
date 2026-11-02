@@ -11,6 +11,7 @@ export function journeyRemaining(phase){return Math.round((1-Math.max(0,Math.min
 export function nextJourneyMilestone(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(t<.15)return `cruise in ${Math.round((.15-t)*100)}%`;if(t<.85)return `descent in ${Math.round((.85-t)*100)}%`;return `arrival in ${Math.round((1-t)*100)}%`;}
 export function altitudeTrend(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));return t<.15?'gaining altitude':t>.85?'losing altitude':'holding fictional cruise altitude';}
 export function routeLegStatus(flight,phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(!flight)return 'No fictional route selected';if(t<.15)return `Departing ${flight.from}`;if(t>.85)return `Approaching ${flight.to}`;return `${flight.from}–${flight.to} fictional en route`;}
+export function journeyStageProgress(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(t<.15)return Math.round(t/.15*100);if(t>.85)return Math.round((t-.85)/.15*100);return Math.round((t-.15)/.7*100);}
 
 
 export function selectionFor(visible, selected) {

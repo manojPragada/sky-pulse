@@ -4,6 +4,8 @@ An interactive flight-exploration demo with a schematic world map, selectable ai
 
 **Status:** working static prototype, no hosted deployment. See limitations below. This project uses no external assets, fonts, runtime dependencies, API keys or paid services.
 
+Current demo increment: the selected fictional journey reports progress within its current climb, cruise or descent stage as well as overall route progress.
+
 ## Quick start
 
 Prerequisites: Python 3 for a local static server; Node.js 20+ for tests.
