@@ -4,7 +4,7 @@ An interactive flight-exploration demo with a schematic world map, selectable ai
 
 **Status:** working static prototype, no hosted deployment. See limitations below. This project uses no external assets, fonts, runtime dependencies, API keys or paid services.
 
-Current demo increment: the selected fictional journey reports progress within its current climb, cruise or descent stage as well as overall route progress.
+Current demo increment: fictional flight details include synchronized altitude remaining to the cruise ceiling or arrival baseline during playback, scrubbing and manual steps.
 
 ## Quick start
 
