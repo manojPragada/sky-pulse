@@ -12,6 +12,7 @@ export function nextJourneyMilestone(phase){const t=Math.max(0,Math.min(1,Number
 export function altitudeTrend(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));return t<.15?'gaining altitude':t>.85?'losing altitude':'holding fictional cruise altitude';}
 export function routeLegStatus(flight,phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(!flight)return 'No fictional route selected';if(t<.15)return `Departing ${flight.from}`;if(t>.85)return `Approaching ${flight.to}`;return `${flight.from}–${flight.to} fictional en route`;}
 export function journeyStageProgress(phase){const t=Math.max(0,Math.min(1,Number(phase)||0));if(t<.15)return Math.round(t/.15*100);if(t>.85)return Math.round((t-.85)/.15*100);return Math.round((t-.15)/.7*100);}
+export function journeyStageRemaining(phase){return 100-journeyStageProgress(phase);}
 export function altitudeStageContext(flight,phase){if(!flight)return 'fictional altitude unavailable';const t=Math.max(0,Math.min(1,Number(phase)||0)),altitude=altitudeAtPhase(flight,t);if(t<.15)return `${Math.max(0,flight.altitude-altitude).toLocaleString('en-US')} ft to fictional cruise`;if(t>.85)return `${altitude.toLocaleString('en-US')} ft above fictional arrival`;return 'at fictional cruise altitude';}
 
 
