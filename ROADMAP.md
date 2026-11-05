@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-11-04: Added a synchronized percentage of each route's fictional cruise altitude, making climb/descent context comparable without implying observed telemetry. Next: verify provider terms before any live adapter.
+
 2026-11-03: Added synchronized remaining progress within each fictional climb, cruise and descent stage. It complements whole-journey progress without implying observed flight telemetry. Next: verify provider terms before any live adapter.
 
 2026-11-02: Added synchronized altitude context for fictional climb, cruise and descent stages, reporting distance to the fictional cruise ceiling or arrival baseline without implying observed flight data. Next: verify provider terms before any live adapter.
