@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-11-05: Added a native, accessible meter synchronized to each route's fictional cruise-altitude percentage, making the profile readable at a glance without presenting it as observed telemetry. Next: verify provider terms before any live adapter.
+
 2026-11-04: Added a synchronized percentage of each route's fictional cruise altitude, making climb/descent context comparable without implying observed telemetry. Next: verify provider terms before any live adapter.
 
 2026-11-03: Added synchronized remaining progress within each fictional climb, cruise and descent stage. It complements whole-journey progress without implying observed flight telemetry. Next: verify provider terms before any live adapter.
