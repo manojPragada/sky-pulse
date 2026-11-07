@@ -1,2 +1,3 @@
-import {test} from 'node:test';import assert from 'node:assert/strict';import {cruiseAltitudePercent,flights} from '../src/model.js';
+import {test} from 'node:test';import assert from 'node:assert/strict';import {cruiseAltitudePercent,cruiseAltitudeLabel,flights} from '../src/model.js';
 test('cruise-relative altitude follows the bounded fictional profile',()=>{assert.equal(cruiseAltitudePercent(flights[0],0),0);assert.equal(cruiseAltitudePercent(flights[0],.075),50);assert.equal(cruiseAltitudePercent(flights[0],.5),100);assert.equal(cruiseAltitudePercent(flights[0],1),0);assert.equal(cruiseAltitudePercent(null,.5),null);});
+test('cruise-relative altitude labels preserve fictional context',()=>{assert.equal(cruiseAltitudeLabel(flights[0],.075),'50% of fictional cruise altitude');assert.equal(cruiseAltitudeLabel(null,.5),'Fictional cruise altitude unavailable');});
