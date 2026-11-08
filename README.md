@@ -4,7 +4,7 @@ An interactive flight-exploration demo with a schematic world map, selectable ai
 
 **Status:** working static prototype, no hosted deployment. See limitations below. This project uses no external assets, fonts, runtime dependencies, API keys or paid services.
 
-Current demo increment: the synchronized cruise-altitude meter now carries a tested, phase-aware accessible label that explicitly identifies the value as fictional during playback, scrubbing and manual steps.
+Current demo increment: each selected route now includes a tested, accessible synthetic altitude profile showing its fictional climb, cruise and descent shape without implying observed telemetry.
 
 ## Quick start
 
