@@ -16,6 +16,8 @@
 
 ## Continuity
 
+2026-11-08: Added a tested current-position marker to the fictional SVG altitude history. It and the graph's accessible description stay synchronized with playback, scrubbing and step controls. Next: verify provider terms before any live adapter.
+
 2026-11-07: Added a tested, accessible SVG altitude-history profile for each selected fictional route, using the existing deterministic climb/cruise/descent model. Next: verify provider terms before any live adapter.
 
 2026-11-06: Added a tested, phase-aware accessible label to the native altitude meter, explicitly preserving fictional cruise-altitude context as its value changes. Next: verify provider terms before any live adapter.

@@ -4,7 +4,7 @@ An interactive flight-exploration demo with a schematic world map, selectable ai
 
 **Status:** working static prototype, no hosted deployment. See limitations below. This project uses no external assets, fonts, runtime dependencies, API keys or paid services.
 
-Current demo increment: each selected route now includes a tested, accessible synthetic altitude profile showing its fictional climb, cruise and descent shape without implying observed telemetry.
+Current demo increment: each selected route's accessible synthetic altitude profile now includes a synchronized current-position marker. Its accessible description updates during playback, scrubbing and step controls without implying observed telemetry.
 
 ## Quick start
 

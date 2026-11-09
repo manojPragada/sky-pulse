@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {flights,position,project,filterFlights,selectionFor,advancePhase,trailSegment,airportDirectory} from '../src/model.js';
-import {altitudeAtPhase} from '../src/model.js';
+import {altitudeAtPhase,altitudeProfilePoint} from '../src/model.js';
 import {altitudeStageContext} from '../src/model.js';
 test('flight endpoints and phase clamping',()=>{assert.deepEqual(position(flights[0],0),flights[0].origin);assert.deepEqual(position(flights[0],2),flights[0].destination);});
 test('search handles case and no results',()=>{assert.equal(filterFlights(' yyz ').length,1);assert.equal(filterFlights('nowhere').length,0);});
@@ -14,6 +14,7 @@ test('phase advances by elapsed time rather than render frequency',()=>{assert.e
 test('invalid or excessive playback deltas stay bounded',()=>{assert.equal(advancePhase(10,100000),12);assert.equal(advancePhase(10,-1),10);assert.equal(advancePhase(NaN,1),0);});
 test('trail segment follows the aircraft and clamps its history window',()=>{assert.deepEqual(trailSegment(flights[0],.6,25),[position(flights[0],.35),position(flights[0],.6)]);assert.deepEqual(trailSegment(flights[0],.1,25)[0],flights[0].origin);assert.deepEqual(trailSegment(flights[0],2,200)[1],flights[0].destination);});
 test('synthetic altitude profile climbs, cruises and descends',()=>{assert.equal(altitudeAtPhase(flights[0],0),0);assert.equal(altitudeAtPhase(flights[0],.15),35000);assert.equal(altitudeAtPhase(flights[0],.5),35000);assert.equal(altitudeAtPhase(flights[0],1),0);});
+test('altitude profile marker follows clamped playback phase',()=>{assert.deepEqual(altitudeProfilePoint(flights[0],0),[0,66]);assert.deepEqual(altitudeProfilePoint(flights[0],.5),[120,8]);assert.deepEqual(altitudeProfilePoint(flights[0],2),[240,66]);assert.equal(altitudeProfilePoint(null,.5),null);});
 test('altitude context stays explicitly fictional across stages',()=>{assert.equal(altitudeStageContext(flights[0],0),'35,000 ft to fictional cruise');assert.equal(altitudeStageContext(flights[0],.5),'at fictional cruise altitude');assert.equal(altitudeStageContext(flights[0],1),'0 ft above fictional arrival');});
 
 
