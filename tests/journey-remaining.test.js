@@ -1,0 +1,1 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {journeyRemaining} from '../src/model.js';test('remaining journey is clamped',()=>{assert.equal(journeyRemaining(-1),100);assert.equal(journeyRemaining(.4),60);assert.equal(journeyRemaining(2),0);});

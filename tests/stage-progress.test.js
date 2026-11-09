@@ -1,0 +1,3 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {journeyStageProgress,journeyStageRemaining} from '../src/model.js';
+test('stage progress resets at synthetic phase boundaries',()=>{assert.equal(journeyStageProgress(0),0);assert.equal(journeyStageProgress(.15),0);assert.equal(journeyStageProgress(.5),50);assert.equal(journeyStageProgress(.85),100);assert.equal(journeyStageProgress(1),100);});
+test('stage remaining complements synthetic stage progress',()=>{assert.equal(journeyStageRemaining(0),100);assert.equal(journeyStageRemaining(.5),50);assert.equal(journeyStageRemaining(1),0);});
