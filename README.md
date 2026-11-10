@@ -22,6 +22,8 @@ src/data.ts       typed synthetic aircraft, airports and map projection
 src/main.ts       state, rendering and interactions
 src/styles.css    responsive visual system and motion preferences
 src/data.test.ts  data/search contract tests
+src/integrations/ provider-neutral live-response boundary and tests
+docs/             integration contracts and provenance requirements
 ROADMAP.md        sequenced product work
 ```
 
