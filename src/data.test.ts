@@ -1,0 +1,2 @@
+import{describe,expect,it}from'vitest';import{flights,project,searchAirports}from'./data'
+describe('demo aviation data',()=>{it('uses explicit demo IDs and valid map points',()=>{for(const f of flights){expect(f.id).toMatch(/^demo-/);const p=project(f.position);expect(p.x).toBeGreaterThanOrEqual(0);expect(p.x).toBeLessThanOrEqual(100)}});it('searches airport code and city',()=>{expect(searchAirports('Toronto')[0].code).toBe('YYZ');expect(searchAirports('zzz')).toEqual([])})})
