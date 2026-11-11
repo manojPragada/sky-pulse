@@ -1,7 +1,7 @@
 # Sky Pulse
 A visually focused flight-tracking interface, beginning with a fully offline synthetic demo.
 
-**Status:** working demo foundation. Selectable aircraft, trails, airport search, responsive layouts and empty states are implemented. No live provider is configured, no real aircraft positions are shown and there is no hosted demo.
+**Status:** working demo foundation. Selectable aircraft, trails, airport search, browser-local demo favorites, responsive layouts and empty states are implemented. No live provider is configured, no real aircraft positions are shown and there is no hosted demo.
 
 ## Run and verify
 Prerequisites: Node.js 22+ and npm 11+.
@@ -20,6 +20,7 @@ None. `.env.example` documents that demo mode has no keys. Do not add a provider
 ```text
 src/data.ts       typed synthetic aircraft, airports and map projection
 src/main.ts       state, rendering and interactions
+src/favorites.ts  validated browser-local demo favorite persistence
 src/styles.css    responsive visual system and motion preferences
 src/data.test.ts  data/search contract tests
 src/integrations/ provider-neutral live-response boundary and tests
@@ -28,7 +29,7 @@ ROADMAP.md        sequenced product work
 ```
 
 ## Architecture and data
-The app is dependency-light TypeScript rendered into semantic HTML plus an inline SVG map. All records use `demo-*` IDs and are authored fixtures, not a cached or simulated live feed. Selection updates the aircraft detail panel; airport search is entirely local. No network request runs in the browser.
+The app is dependency-light TypeScript rendered into semantic HTML plus an inline SVG map. All records use `demo-*` IDs and are authored fixtures, not a cached or simulated live feed. Selection updates the aircraft detail panel; airport search is entirely local. Favorite IDs are validated against the current synthetic fixture set and stored in browser `localStorage`; no flight or airport data is persisted. No network request runs in the browser.
 
 ## Accessibility and performance
 Native buttons drive every selection, focus styles use browser defaults, a skip link reaches the flight list, and details are announced through an `aria-live` region. Mobile layouts remove nonessential telemetry. Motion is limited to a selected-marker pulse and is disabled when reduced motion is requested.

@@ -7,8 +7,10 @@
 - [x] Define a provider-neutral normalization and freshness contract
 ## Next
 - [ ] Verify provider terms, attribution and rate limits before any live integration
-- [ ] Persist optional favorites locally
+- [x] Persist optional demo favorites locally with validated IDs
 ## Continuity
+2026-11-10: Added user-initiated browser-local favorites for synthetic flights, validating restored IDs against the current fixture set and keeping provenance labels visible. Next: evaluate a specific provider's current terms, attribution, coverage and limits before wiring an adapter.
+
 2026-11-09: Added a provider-neutral envelope normalizer with geographic validation, future-timestamp rejection and explicit fresh/stale states. No provider is selected or contacted. Next: evaluate a specific provider's current terms, attribution, coverage and limits before wiring an adapter.
 
 2026-11-09: Added bounded pan/zoom controls as native buttons, retained focus across map redraws and unit-tested viewport clamping. Next: define the provider-neutral freshness/error contract before considering live data.
