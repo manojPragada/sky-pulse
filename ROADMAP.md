@@ -8,7 +8,10 @@
 ## Next
 - [ ] Verify provider terms, attribution and rate limits before any live integration
 - [x] Persist optional demo favorites locally with validated IDs
+- [x] Add an accessible saved-only demo flight filter and empty state
 ## Continuity
+2026-11-11: Added a keyboard-operable saved-only flight filter with deterministic fixture ordering and a clear empty state when no demo flights are saved. Next: evaluate a specific provider's current terms, attribution, coverage and limits before wiring an adapter.
+
 2026-11-10: Added user-initiated browser-local favorites for synthetic flights, validating restored IDs against the current fixture set and keeping provenance labels visible. Next: evaluate a specific provider's current terms, attribution, coverage and limits before wiring an adapter.
 
 2026-11-09: Added a provider-neutral envelope normalizer with geographic validation, future-timestamp rejection and explicit fresh/stale states. No provider is selected or contacted. Next: evaluate a specific provider's current terms, attribution, coverage and limits before wiring an adapter.

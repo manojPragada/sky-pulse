@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseFavorites, serializeFavorites, toggledFavorites } from './favorites'
+import { filteredFavorites, parseFavorites, serializeFavorites, toggledFavorites } from './favorites'
 
 describe('demo flight favorites', () => {
   const ids = ['demo-01', 'demo-02']
@@ -13,5 +13,11 @@ describe('demo flight favorites', () => {
     expect([...current]).toEqual(['demo-02'])
     expect(serializeFavorites(next)).toBe('["demo-01","demo-02"]')
     expect([...toggledFavorites(next, 'demo-02')]).toEqual(['demo-01'])
+  })
+  it('filters the demo list without reordering saved flights', () => {
+    const items = ids.map((id) => ({ id }))
+    expect(filteredFavorites(items, new Set(['demo-02']), true)).toEqual([{ id: 'demo-02' }])
+    expect(filteredFavorites(items, new Set(), true)).toEqual([])
+    expect(filteredFavorites(items, new Set(), false)).toEqual(items)
   })
 })

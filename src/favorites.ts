@@ -20,3 +20,6 @@ export function toggledFavorites(favorites: ReadonlySet<string>, id: string) {
   else next.add(id)
   return next
 }
+
+export const filteredFavorites = <T extends { id: string }>(items: readonly T[], favorites: ReadonlySet<string>, savedOnly: boolean) =>
+  savedOnly ? items.filter(({ id }) => favorites.has(id)) : [...items]
